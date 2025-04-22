@@ -1,15 +1,11 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/universal
 {
-	"name": "Default Linux Universal",
+	"name": "vue-flask-container",
   "build": {
     "dockerfile": "Dockerfile"
   },
-  
-  // Forward ports for Vue.js and Flask
-  "forwardPorts": [8080, 5000],
-  
-  // Install necessary extensions
+  "forwardPorts": [8000, 9000],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -26,10 +22,6 @@
       }
     }
   },
-  
-  // Run commands after container is created to set up the project
-  "postCreateCommand": "npm install -g @vue/cli && pip3 install flask flask-cors"
-  
-  // Comment this line out if you want to run as root
-  // "remoteUser": "vscode"
+  "postCreateCommand": "bash -c 'source /etc/profile && nvm install --lts && nvm use --lts && npm install -g @vue/cli && pip install flask flask-cors'",
+  "remoteUser": "vscode"
 }
