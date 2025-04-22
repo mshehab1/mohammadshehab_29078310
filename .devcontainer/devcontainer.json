@@ -2,21 +2,34 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/universal
 {
 	"name": "Default Linux Universal",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/universal:2-linux"
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
-	// "postCreateCommand": "uname -a",
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  
+  // Forward ports for Vue.js and Flask
+  "forwardPorts": [8080, 5000],
+  
+  // Install necessary extensions
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "dbaeumer.vscode-eslint",
+        "octref.vetur",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true
+      }
+    }
+  },
+  
+  // Run commands after container is created to set up the project
+  "postCreateCommand": "npm install -g @vue/cli && pip3 install flask flask-cors"
+  
+  // Comment this line out if you want to run as root
+  // "remoteUser": "vscode"
 }
