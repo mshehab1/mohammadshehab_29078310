@@ -1,15 +1,13 @@
-# Use the default VS Code Linux Universal base image
-FROM mcr.microsoft.com/devcontainers/universal:2
+FROM mcr.microsoft.com/vscode/devcontainers/universal:latest
 
-# Install Node.js (for Vue.js)
-RUN su vscode -c "nvm install --lts"
-RUN su vscode -c "source ~/.nvm/nvm.sh && nvm use --lts && npm install -g @vue/cli"
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends nodejs npm
 
-# Install Python packages (for Flask)
-RUN pip install flask
+RUN pip3 install --no-cache-dir flask flask-cors
 
-# Optional: Set working directory
-WORKDIR /workspace/app
+RUN apt-get update && apt-get install -y git-lfs \
+    && git lfs install
 
-# Default command
-CMD [ "bash" ]
+WORKDIR /workspaces
+
+EXPOSE 8080 5000

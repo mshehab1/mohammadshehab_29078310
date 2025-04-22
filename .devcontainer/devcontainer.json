@@ -2,9 +2,26 @@
 // README at: https://github.com/devcontainers/templates/tree/main/src/universal
 {
 	"name": "vue-flask-container",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
-	"postCreateCommand": "npm install -g @vue/cli && pip install flask",
-	"remoteUser": "vscode"
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "forwardPorts": [8000, 9000],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "dbaeumer.vscode-eslint",
+        "octref.vetur",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/bin/python3",
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true
+      }
+    }
+  },
+  "postCreateCommand": "bash -c 'source /etc/profile && nvm install --lts && nvm use --lts && npm install -g @vue/cli && pip install flask flask-cors'",
+  "remoteUser": "vscode"
 }
